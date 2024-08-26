@@ -1,4 +1,4 @@
-import { NextRequest } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { serialize } from "cookie";
 
 export async function POST(request: NextRequest) {
@@ -7,11 +7,26 @@ export async function POST(request: NextRequest) {
 
   if (password === process.env.ADMIN_PASSWORD!) {
     const cookie = serialize(process.env.PASSWORD_COOKIE!, "admin", { httpOnly: true, path: "/" });
-    return new Response("Welcome, Isabelle!", { status: 200, headers: { "Set-Cookie": cookie } });
+    return NextResponse.json(
+      { message: "Welcome, Isabelle!" },
+      {
+        status: 200,
+        headers: { "Set-Cookie": cookie }
+      }
+    );
   } else if (password === process.env.USER_PASSWORD!) {
     const cookie = serialize(process.env.PASSWORD_COOKIE!, "user", { httpOnly: true, path: "/" });
-    return new Response("Welcome to the blog!", { status: 200, headers: { "Set-Cookie": cookie } });
+    return NextResponse.json(
+      { message: "Welcome to the blog!" },
+      {
+        status: 200,
+        headers: { "Set-Cookie": cookie }
+      }
+    );
   } else {
-    return new Response("Incorrect Password", { status: 401 })
+    return NextResponse.json(
+      { message: "Incorrect Password" },
+      { status: 401 }
+    );
   }
 }
