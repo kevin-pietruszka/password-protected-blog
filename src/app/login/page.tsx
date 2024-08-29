@@ -25,7 +25,7 @@ export default function LoginPage() {
       
       if (response.ok) {
         setHasError(false);
-        router.push("/");
+        router.push("/blog");
       } else {
         throw new Error('Login failed');
       }

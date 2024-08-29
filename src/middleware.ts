@@ -5,6 +5,7 @@ const publicRoutes = ['/login']
 export default async function middleware(req: NextRequest) {
   const path = req.nextUrl.pathname;
   const isPublicRoute = publicRoutes.includes(path);
+  const isBlogRoute = path.includes("/blog");
 
   if (isPublicRoute) {
     return NextResponse.next();
@@ -14,6 +15,9 @@ export default async function middleware(req: NextRequest) {
 
   if (!hasCookie) {
     return NextResponse.redirect(new URL('/login', req.nextUrl));
+  }
+  if (!isBlogRoute) {
+    return NextResponse.redirect(new URL('/blog', req.nextUrl));
   }
  
   return NextResponse.next();
