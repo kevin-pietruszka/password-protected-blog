@@ -1,20 +1,48 @@
 "use client";
 
-import { FormEvent, useState } from 'react';
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useState } from 'react';
+import { useForm } from "react-hook-form";
 import { useRouter } from 'next/navigation';
+
+const formSchema = z.object({
+  password: z.string(),
+})
 
 export default function LoginPage() {
 
   const [isLoading, setIsLoading] = useState(false);
   const [hasError, setHasError] = useState(false);
   const router = useRouter();
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      password: "",
+    },
+  })
 
-  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
+  async function onSubmit(values: z.infer<typeof formSchema>) {
     setIsLoading(true);
 
-    const formData = new FormData(event.currentTarget);
-    const password = formData.get("password");
+    const password = values.password;
 
     try {
       const response = await fetch('/api/auth/login', {
@@ -22,7 +50,7 @@ export default function LoginPage() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ password }),
       })
-      
+
       if (response.ok) {
         setHasError(false);
         router.push("/blog");
@@ -40,22 +68,35 @@ export default function LoginPage() {
 
   return (
     <section id="login" className="w-screen h-screen flex items-center justify-center">
-      <div className="max-w-sm rounded border-2 border-lilac p-4 shadow-md">
-        <form onSubmit={handleSubmit}>
-          <div className="my-8 text-center">
-            <h1 className="text-2xl font-bold"> Welcome to Isabelles Blog! </h1>
-            {hasError ? <p className="text-red-900 text-sm"> Please try again. </p> : <p className="text-sm"> Please enter the password below. </p> }
-          </div>
-
-          <div className="grid gap-4">
-            <label htmlFor="password" className="block text-sm font-bold">
-              Password:
-              <input className="block w-full p-2 border-2 border-gray-200 rounded-md text-sm shadow-sm focus:border-red-900" type="password" name="password" required />
-            </label>
-            <button className="block w-full p-2 rounded bg-lilac text-white" type="submit" disabled={isLoading}> {isLoading ? 'Submitting...' : 'Submit'} </button>
-          </div>
-        </form>
-      </div>
+      <Card className="max-w-lg">
+        <CardHeader>
+          <CardTitle> {"Welcome to Isabelles Blog!"} </CardTitle>
+          <CardDescription className={hasError ? "text-destructive" : ""}>
+            {hasError ? "Please try again." : "Please enter the password below."}
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)}>
+              <FormField
+                control={form.control}
+                name="password"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel> {"Password"} </FormLabel>
+                    <FormControl>
+                      <Input type="password" {...field} />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+            </form>
+          </Form>
+        </CardContent>
+        <CardFooter className="flex justify-between">
+          <Button type="submit" disabled={isLoading}> {isLoading ? 'Submitting...' : 'Submit'} </Button>
+        </CardFooter>
+      </Card>
     </section>
   );
 }
