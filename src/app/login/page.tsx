@@ -22,6 +22,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from 'react';
 import { useForm } from "react-hook-form";
 import { useRouter } from 'next/navigation';
+import { ThemeButton } from "@/components/theme-button";
 
 const formSchema = z.object({
   password: z.string(),
@@ -95,6 +96,7 @@ export default function LoginPage() {
         </CardContent>
         <CardFooter className="flex justify-between">
           <Button type="submit" disabled={isLoading}> {isLoading ? 'Submitting...' : 'Submit'} </Button>
+          <ThemeButton />
         </CardFooter>
       </Card>
     </section>
