@@ -6,7 +6,7 @@ export async function POST(request: NextRequest) {
   const password = body.password;
 
   if (password === process.env.ADMIN_PASSWORD!) {
-    const cookie = serialize(process.env.PASSWORD_COOKIE!, "admin", { httpOnly: true, path: "/" });
+    const cookie = serialize(process.env.PASSWORD_COOKIE!, "admin", { path: "/" });
     return NextResponse.json(
       { message: "Welcome, Isabelle!" },
       {
@@ -15,7 +15,7 @@ export async function POST(request: NextRequest) {
       }
     );
   } else if (password === process.env.USER_PASSWORD!) {
-    const cookie = serialize(process.env.PASSWORD_COOKIE!, "user", { httpOnly: true, path: "/" });
+    const cookie = serialize(process.env.PASSWORD_COOKIE!, "user", { path: "/" });
     return NextResponse.json(
       { message: "Welcome to the blog!" },
       {
