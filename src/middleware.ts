@@ -1,29 +1,36 @@
-import { NextRequest, NextResponse } from 'next/server'
-
-const publicRoutes = ['/login']
- 
-export default async function middleware(req: NextRequest) {
-  const path = req.nextUrl.pathname;
-  const isPublicRoute = publicRoutes.includes(path);
-  const isBlogRoute = path.includes("/blog");
-
-  if (isPublicRoute) {
-    return NextResponse.next();
-  }
- 
-  const hasCookie = req.cookies.has(process.env.PASSWORD_COOKIE!);
-
-  if (!hasCookie) {
-    return NextResponse.redirect(new URL('/login', req.nextUrl));
-  }
-  if (!isBlogRoute) {
-    return NextResponse.redirect(new URL('/blog', req.nextUrl));
-  }
- 
-  return NextResponse.next();
-}
+import { NextResponse } from "next/server";
+import { auth } from "@/auth";
 
 export const config = {
-  matcher: ['/((?!api|_next/static|_next/image|.*\\.png$).*)'],
+  matcher: ['/((?!api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt|$|auth/.*).*)'],
 }
 
+export default auth((req) => {
+
+  const nextUrl = req.nextUrl;
+  const pathname = nextUrl.pathname;
+
+  const session = req.auth;
+  const user = session?.user;
+
+  if (!user) {
+    return NextResponse.redirect(new URL('/auth/signin', nextUrl));
+  }
+
+  if (pathname.startsWith('/blog')) {
+    if (user.name === 'user' || user.name === 'admin') {
+      return NextResponse.next();
+    } else {
+      return NextResponse.redirect(new URL('/auth/signin', nextUrl));
+    }
+  }
+
+  if (pathname.startsWith('/dashboard')) {
+    if (user.name === 'admin') {
+      return NextResponse.next();
+    } else {
+      return NextResponse.redirect(new URL('/auth/signin', nextUrl));
+    }
+  }
+  return NextResponse.next();
+});

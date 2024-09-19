@@ -1,12 +1,21 @@
+import { SignOutButton } from "@/components/signout-button";
+import { ThemeButton } from "@/components/theme-button";
+
 export default function Blog() {
   return (
-    <main className="max-w-5xl mx-auto">
-      <section id="hero">
-        <div id="hero-content" className="bg-lilac flex flex-col items-center justify-center py-16">
-          <h1 className="text-2xl md:text-4xl"> {"Welcome to Isabelle's Blog!"} </h1>
-        </div>
-      </section>
-      <section> Blog List </section>
-    </main>
+    <>
+      <header className="flex justify-between items-center max-w-6xl mx-auto px-4 py-8">
+        <h1 className="font-bold text-4xl"> {"Isabelle's Blog"} </h1>
+        <nav className="flex items-center justify-center gap-2"> 
+          <ThemeButton />
+          <SignOutButton />
+        </nav>
+      </header>
+      <main className="max-w-6xl mx-auto px-4 py-8">
+        <h2 className="text-2xl font-bold">
+          {"Posts"}
+        </h2>
+      </main>
+    </>
   );
 }
