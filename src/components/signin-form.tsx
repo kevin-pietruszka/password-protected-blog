@@ -23,7 +23,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { handleSignIn } from "@/app/actions/auth-actions";
+import { handleSignIn } from "@/lib/auth-actions";
 
 const formSchema = z.object({
   role: z.enum(["user", "admin"], {

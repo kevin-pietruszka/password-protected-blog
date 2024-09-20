@@ -1,6 +1,6 @@
 "use client";
 
-import { handleSignOut } from "@/app/actions/auth-actions";
+import { handleSignOut } from "@/lib/auth-actions";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 
