@@ -1,7 +1,7 @@
 'use client';
 
 import { Search } from 'lucide-react';
-import { Input } from '@/components/ui/input'; // Adjust the import path to where you have ShadCN input component
+import { Input } from '@/components/ui/input';
 import { useSearchParams, usePathname, useRouter } from 'next/navigation';
 import { useDebouncedCallback } from 'use-debounce';
 
