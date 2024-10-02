@@ -2,7 +2,7 @@ import { SignOutButton } from "@/components/signout-button";
 import { ThemeButton } from "@/components/theme-button";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
-import { HomeIcon, ArrowLeft } from "lucide-react";
+import { HomeIcon, ArrowLeft, PlusIcon } from "lucide-react";
 import Link from "next/link";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
@@ -17,6 +17,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             <nav className="flex flex-col gap-2">
               <Link href="/dashboard">
                 <Button variant="outline" className="w-full flex flex-row justify-start gap-2"> <HomeIcon /> Home </Button>
+              </Link>
+              <Link href="/dashboard/create">
+                <Button variant="outline" className="w-full flex flex-row justify-start gap-2"> <PlusIcon /> Create </Button>
               </Link>
               <Link href="/blog">
                 <Button variant="outline" className="w-full flex flex-row justify-start gap-2"> <ArrowLeft /> Back to Blog </Button>
