@@ -3,7 +3,13 @@ import { Table, TableHeader, TableRow, TableHead, TableCell, TableBody } from "@
 import { Pen, Trash } from "lucide-react";
 import Link from "next/link";
 
-export default function BlogTable() {
+export default function BlogTable({
+    query,
+    currentPage,
+  }: {
+    query: string;
+    currentPage: number;
+  }) {
   const blogs = [
     { blogId: 1, blogTitle: "Intro to React", blogDate: "2023-09-10" },
     { blogId: 2, blogTitle: "Advanced TypeScript", blogDate: "2023-09-12" },
@@ -26,14 +32,14 @@ export default function BlogTable() {
             <TableCell>{blog.blogId}</TableCell>
             <TableCell>{blog.blogTitle}</TableCell>
             <TableCell>{blog.blogDate}</TableCell>
-            <TableCell className="text-right">
+            <TableCell className="md:text-right">
               <Button variant="outline" size="sm" className="mr-2">
                 <Link href={`/edit/${blog.blogId}`}>
-                  <Pen />
+                  <Pen size={16} />
                 </Link>
               </Button>
               <Button variant="destructive" size="sm">
-                <Trash />
+                <Trash size={16} />
               </Button>
             </TableCell>
           </TableRow>
