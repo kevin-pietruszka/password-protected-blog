@@ -29,21 +29,16 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { cn } from "@/lib/utils";
 import { format } from "date-fns";
+import { Blog, ClientBlogSchema } from "@/lib/definitions";
 
 import dynamic from "next/dynamic";
+import { createBlog } from "@/lib/data-actions";
 const Editor = dynamic(() => import("@/components/blog-editor"), { ssr: false });
-
-const formSchema = z.object({
-  title: z.string().min(1, "Title is required"),
-  date: z.date(),
-  status: z.enum(["Unlisted", "Public"]),
-  content: z.string().promise(),
-});
 
 export default function CreateBlogPage() {
 
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<z.infer<typeof ClientBlogSchema>>({
+    resolver: zodResolver(ClientBlogSchema),
     defaultValues: {
       title: "",
       date: new Date(),
@@ -52,12 +47,21 @@ export default function CreateBlogPage() {
     }
   });
 
-  async function onSubmit(values: z.infer<typeof formSchema>) {
-    const resolvedValues = {
+  async function onSubmit(values: z.infer<typeof ClientBlogSchema>) {
+    const serverData: Blog = {
       ...values,
       content: await values.content,
     };
-    console.log(resolvedValues);
+       
+    try {
+      const response = await createBlog(serverData);
+
+      if (response.error) {
+        alert("Error uploading, please try again.")
+      }
+    } catch (error) {
+      alert("Error uploading, please try again.")
+    }
   }
 
   return (
