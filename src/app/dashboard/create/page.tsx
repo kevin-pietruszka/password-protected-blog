@@ -37,7 +37,7 @@ const formSchema = z.object({
   title: z.string().min(1, "Title is required"),
   date: z.date(),
   status: z.enum(["Unlisted", "Public"]),
-  content: z.string(),
+  content: z.string().promise(),
 });
 
 export default function CreateBlogPage() {
@@ -48,12 +48,16 @@ export default function CreateBlogPage() {
       title: "",
       date: new Date(),
       status: "Unlisted",
-      content: "",
+      content: Promise.resolve(""),
     }
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values)
+    const resolvedValues = {
+      ...values,
+      content: await values.content,
+    };
+    console.log(resolvedValues);
   }
 
   return (

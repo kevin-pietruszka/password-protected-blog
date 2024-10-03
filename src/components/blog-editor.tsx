@@ -7,7 +7,7 @@ import "@/styles/editor.css";
 import { useTheme } from "next-themes";
 
 interface EditorProps {
-  onContentChange: (content: string) => void | undefined
+  onContentChange: (content: Promise<string>) => void | undefined
 }
 
 export default function Editor({onContentChange }: EditorProps) {
@@ -16,8 +16,8 @@ export default function Editor({onContentChange }: EditorProps) {
   const currentTheme: 'dark' | 'light' = theme.theme === 'dark' ? 'dark' : 'light';
   
   const onChange = async () => {
-    const html = await editor.blocksToFullHTML(editor.document)
-    onContentChange(html)
+    const htmlPromise = editor.blocksToFullHTML(editor.document).then((document) => document)
+    onContentChange(htmlPromise)
   }
 
   return (
