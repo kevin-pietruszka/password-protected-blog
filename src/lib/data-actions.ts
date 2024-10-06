@@ -14,15 +14,23 @@ export async function createBlog(blogData: Blog) {
 
   } catch (error) {
     console.error('Error uploading blog post:', error)
-    return {
-      error: 'Failed to upload blog post. Please try again.',
-    }
+    throw new Error("Failed to fetch upload blog.")
   }
 
   revalidatePath('/dashboard');
   redirect('/dashboard');
 }
 
-async function getBlogs() {
+export async function updateBlog(blogData: Blog) {
 
+}
+
+export async function fetchBlogById(id: string) {
+  try {
+    const blog = await kv.get(`blog:${id}`);
+    return blog as Blog;
+  } catch (error) {
+    console.error("Error getting blog with id:", id);
+    throw new Error("Failed to fetch blog.")
+  }
 }
