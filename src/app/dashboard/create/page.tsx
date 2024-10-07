@@ -1,4 +1,4 @@
-import BlogForm from "@/components/create-blog-form";
+import BlogForm from "@/components/dashboard/create/create-blog-form";
 import {
   Breadcrumb,
   BreadcrumbItem,

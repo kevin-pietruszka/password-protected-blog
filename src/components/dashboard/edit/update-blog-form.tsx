@@ -147,7 +147,6 @@ export default function UpdateBlogForm({id, blog}: {id: string, blog:Blog}) {
                 <FormControl>
                   <Editor
                     onContentChange={field.onChange}
-                    initialValue={blog.content}
                   />
                 </FormControl>
               </FormItem>

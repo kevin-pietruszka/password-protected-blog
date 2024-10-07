@@ -1,5 +1,5 @@
-import DashboardButton from "@/components/dashboard-button";
-import { SignOutButton } from "@/components/signout-button";
+import DashboardButton from "@/components/dashboard/dashboard-button";
+import { SignOutButton } from "@/components/auth/signout-button";
 import { ThemeButton } from "@/components/theme-button";
 
 export default function Blog() {

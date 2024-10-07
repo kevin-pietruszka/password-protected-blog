@@ -1,4 +1,4 @@
-import { SignOutButton } from "@/components/signout-button";
+import { SignOutButton } from "@/components/auth/signout-button";
 import { ThemeButton } from "@/components/theme-button";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";

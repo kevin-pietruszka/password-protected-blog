@@ -1,6 +1,6 @@
-import BlogTable from "@/components/blog-table";
-import SearchComponent from "@/components/search";
-import BlogPagination from "@/components/blog-pagination";
+import BlogTable from "@/components/dashboard/blog-table";
+import SearchComponent from "@/components/dashboard/search";
+import BlogPagination from "@/components/dashboard/blog-pagination";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { PlusIcon } from "lucide-react";
