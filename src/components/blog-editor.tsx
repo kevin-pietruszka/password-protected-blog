@@ -2,22 +2,23 @@ import { useCreateBlockNote } from "@blocknote/react";
 import { BlockNoteView } from "@blocknote/shadcn";
 import "@blocknote/core/fonts/inter.css";
 import "@blocknote/shadcn/style.css";
-import "@/styles/editor.module.css";
 
 import { useTheme } from "next-themes";
 
 interface EditorProps {
-  onContentChange: (content: Promise<string>) => void | undefined
+  onContentChange: (content: any[]) => void | undefined
+  initialContent: any[]
 }
 
-export default function Editor({onContentChange }: EditorProps) {
-  const editor = useCreateBlockNote();
+export default function Editor({onContentChange, initialContent }: EditorProps) {
+  const editor = useCreateBlockNote({
+    initialContent: initialContent
+  });
   const theme = useTheme();
   const currentTheme: 'dark' | 'light' = theme.theme === 'dark' ? 'dark' : 'light';
   
   const onChange = async () => {
-    const htmlPromise = editor.blocksToFullHTML(editor.document).then((document) => document)
-    onContentChange(htmlPromise)
+    onContentChange(editor.document)
   }
 
   return (

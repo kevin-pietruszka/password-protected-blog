@@ -22,7 +22,14 @@ export async function createBlog(blogData: Blog) {
 }
 
 export async function updateBlog(id:string, blogData: Blog) {
-
+  try {
+    await kv.set(`blog:${id}`, blogData);
+  } catch (error) {
+    console.error('Error uploading blog post: ', error);
+    throw new Error("Failed to update blog with id " + id);
+  }
+  revalidatePath('/dashboard');
+  redirect('/dashboard');
 }
 
 export async function fetchBlogById(id: string) {

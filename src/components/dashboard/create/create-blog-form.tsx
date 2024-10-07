@@ -43,14 +43,13 @@ export default function BlogForm() {
       title: "",
       date: new Date(),
       status: "Unlisted",
-      content: Promise.resolve(""),
+      content: [],
     }
   });
 
   async function onSubmit(values: z.infer<typeof ClientBlogSchema>) {
     const serverData: Blog = {
       ...values,
-      content: await values.content,
     };
        
     try {
@@ -146,6 +145,7 @@ export default function BlogForm() {
                 <FormControl>
                   <Editor
                     onContentChange={field.onChange}
+                    initialContent={field.value}
                   />
                 </FormControl>
               </FormItem>

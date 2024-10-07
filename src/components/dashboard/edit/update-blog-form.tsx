@@ -44,14 +44,13 @@ export default function UpdateBlogForm({id, blog}: {id: string, blog:Blog}) {
       title: blog.title,
       date: blog.date,
       status: blog.status,
-      content: Promise.resolve(blog.content),
+      content: blog.content,
     }
   });
 
   async function onSubmit(values: z.infer<typeof ClientBlogSchema>) {
     const serverData: Blog = {
       ...values,
-      content: await values.content,
     };
        
     try {
@@ -147,12 +146,13 @@ export default function UpdateBlogForm({id, blog}: {id: string, blog:Blog}) {
                 <FormControl>
                   <Editor
                     onContentChange={field.onChange}
+                    initialContent={field.value}
                   />
                 </FormControl>
               </FormItem>
             )}
           />
-          <Button type="submit"> {"Create blog"} </Button>
+          <Button type="submit"> {"Update blog"} </Button>
         </form>
       </Form>
   );

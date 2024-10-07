@@ -7,6 +7,7 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb"
+import UpdateBlogForm from "@/components/dashboard/edit/update-blog-form";
 
 export default async function EditBlogPage({ params }: { params: { id: string } }) {
 
@@ -26,7 +27,7 @@ export default async function EditBlogPage({ params }: { params: { id: string } 
           </BreadcrumbItem>
         </BreadcrumbList>
       </Breadcrumb>
-      <h1> {blog.title} </h1>
+      <UpdateBlogForm id={id} blog={blog} />
     </section>
   );
 }
