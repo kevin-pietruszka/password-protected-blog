@@ -21,7 +21,7 @@ export async function createBlog(blogData: Blog) {
   redirect('/dashboard');
 }
 
-export async function updateBlog(blogData: Blog) {
+export async function updateBlog(id:string, blogData: Blog) {
 
 }
 
