@@ -27,7 +27,7 @@ import { Input } from "@/components/ui/input";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { cn } from "@/lib/utils";
+import { cn, titleToId } from "@/lib/utils";
 import { format } from "date-fns";
 import { Blog, ClientBlogSchema } from "@/lib/definitions";
 
@@ -49,6 +49,7 @@ export default function BlogForm() {
 
   async function onSubmit(values: z.infer<typeof ClientBlogSchema>) {
     const serverData: Blog = {
+      id: titleToId(values.title),
       ...values,
     };
        
