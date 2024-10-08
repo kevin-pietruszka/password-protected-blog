@@ -2,6 +2,7 @@ import { z } from "zod";
 import { Block } from "@blocknote/core";
 
 export type Blog = {
+  id: string;
   title: string;
   date: Date;
   status: 'Unlisted' | 'Public';
