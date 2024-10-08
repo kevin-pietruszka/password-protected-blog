@@ -43,7 +43,7 @@ export default function BlogForm() {
       title: "",
       date: new Date(),
       status: "Unlisted",
-      content: [],
+      content: [{ type: "paragraph", content: "" }],
     }
   });
 
