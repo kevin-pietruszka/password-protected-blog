@@ -81,7 +81,10 @@ export async function fetchBlogById(id: string) {
 
 export async function fetchBlogs() {
   try {
-    const blogs = await kv.json.get<Blog[]>("blogs", "$.*")
+    const blogs = await kv.json.get<Blog[]>("blogs", "$.*");
+    if (!blogs || blogs.length === 0) {
+      return [];
+    }
     return blogs
   } catch (error) {
     console.error("Error getting blogs");
