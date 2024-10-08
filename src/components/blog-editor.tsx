@@ -10,13 +10,13 @@ interface EditorProps {
   initialContent: any[]
 }
 
-export default function Editor({onContentChange, initialContent }: EditorProps) {
+export default function Editor({ onContentChange, initialContent }: EditorProps) {
   const editor = useCreateBlockNote({
     initialContent: initialContent
   });
   const theme = useTheme();
   const currentTheme: 'dark' | 'light' = theme.theme === 'dark' ? 'dark' : 'light';
-  
+
   const onChange = async () => {
     onContentChange(editor.document)
   }
