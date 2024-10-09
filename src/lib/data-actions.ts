@@ -14,6 +14,7 @@ export async function createBlog(blog: Blog) {
     throw new Error("Failed to fetch upload blog.")
   }
   revalidatePath('/dashboard');
+  revalidatePath('/blog');
   redirect('/dashboard');
 }
 
@@ -31,6 +32,7 @@ export async function updateBlog(id: string, blog: Blog) {
   revalidatePath(`/dashboard/edit/${id}`);
   revalidatePath(`/dashboard/edit/${blog.id}`);
   revalidatePath('/dashboard');
+  revalidatePath('/blog');
   redirect('/dashboard');
 }
 
@@ -42,6 +44,7 @@ export async function publishBlog(id: string) {
     throw new Error("Failed to publish blog");
   }
   revalidatePath('/dashboard');
+  revalidatePath('/blog');
   redirect('/dashboard');
 }
 
@@ -53,6 +56,7 @@ export async function unlistBlog(id: string) {
     throw new Error("Failed to unlist blog");
   }
   revalidatePath('/dashboard');
+  revalidatePath('/blog');
   redirect('/dashboard');
 }
 
@@ -64,6 +68,7 @@ export async function deleteBlogById(id: string) {
     throw new Error("Failed to delete blog post")
   }
   revalidatePath('/dashboard');
+  revalidatePath('/blog');
   redirect('/dashboard');
 }
 
